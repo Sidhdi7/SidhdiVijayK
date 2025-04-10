@@ -46,7 +46,7 @@ jobs:
       - name: Push image to Docker Hub
         run: docker push sidhdi7/node-app:latest
         
-security:
+  security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -55,26 +55,26 @@ security:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-greet-contributor:
-    name: Greet First-Time Contributor
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.user.login != github.repository.owner
-    steps:
-      - name: 💬 Post welcome comment
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.payload.pull_request.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "Welcome to the project, @${{ github.actor }}! Thanks for your contribution"
-            })
+  greet-contributor:
+      name: Greet First-Time Contributor
+      runs-on: ubuntu-latest
+      if: github.event_name == 'pull_request' && github.event.pull_request.user.login != github.repository.owner
+      steps:
+        - name: 💬 Post welcome comment
+          uses: actions/github-script@v6
+          with:
+            script: |
+              github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: "Welcome to the project, @${{ github.actor }}! Thanks for your contribution"
+              })
 
   log-success:
-    name: Log Completion
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name:  Final log
-        run: echo "All CI jobs completed successfully and Docker image pushed!"
+      name: Log Completion
+      runs-on: ubuntu-latest
+      needs: build
+      steps:
+        - name:  Final log
+          run: echo "All CI jobs completed successfully and Docker image pushed!"
