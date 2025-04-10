@@ -55,14 +55,7 @@ security:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-    
-
-  
-  
-
-
-      
-  greet-contributor:
+greet-contributor:
     name: Greet First-Time Contributor
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.pull_request.user.login != github.repository.owner
